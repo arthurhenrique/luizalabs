@@ -9,14 +9,16 @@ all: clean install test
 test:
 	poetry run pytest tests -v
 
-install:
+generate-env:
 	cp .env.example .env
+
+install:
 	pip install --upgrade pip
 	pip install poetry
 	poetry install
 
 run:
-	poetry run uvicorn app.main:app --port 8080 --reload
+	poetry run flask run
 
 deploy:
 	docker-compose build

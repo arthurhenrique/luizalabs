@@ -1,0 +1,16 @@
+[default]
+DEBUG = false
+SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
+TITLE = "Luiza"
+SECRET_KEY = "default"
+PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+
+[development]
+DEBUG = true
+
+[testing]
+SQLALCHEMY_DATABASE_URI = 'sqlite:///testing.db'
+
+[production]
+SQLALCHEMY_DATABASE_URI = 'sqlite:///production.db'

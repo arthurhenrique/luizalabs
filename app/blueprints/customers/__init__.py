@@ -1,7 +1,7 @@
-from luizalabs.app.extensions.rest import api
+from app.extensions.api import api
 
 
 def init_app(app, **kwargs):
-    from . import models, resources
+    from . import resources
 
     api.add_namespace(resources.api)
