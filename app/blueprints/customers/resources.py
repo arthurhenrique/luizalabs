@@ -69,8 +69,8 @@ class CustomerByID(Resource):
 @api.route("/<int:customer_id>/favorite-product/")
 class FavoriteResource(Resource):
     def get(self, customer_id):
-        favorite = Favorite.query.filter_by(customer_id=customer_id).first_or_404()
-        return jsonify(favorite.to_dict())
+        favorites = Favorite.query.filter_by(customer_id=customer_id).all()
+        return jsonify({"favorites": [favorite.to_dict() for favorite in favorites]})
 
     def post(self):
 
