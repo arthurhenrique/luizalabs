@@ -12,7 +12,11 @@ test:
 generate-env:
 	cp .env.example .env
 
+magic:
+	$(SHELL) egg.sh
+
 install:
+	$(MAKE) generate-env
 	pip install --upgrade pip
 	pip install poetry
 	poetry install
@@ -23,6 +27,7 @@ run:
 deploy:
 	docker-compose build
 	docker-compose up -d
+	$(MAKE) magic
 
 down:
 	docker-compose down
