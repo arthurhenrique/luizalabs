@@ -1,6 +1,12 @@
 from flask import abort, jsonify
 
-from app.extensions.api import HTTPStatus, Namespace, Resource, commit_or_abort
+from app.extensions.api import (
+    HTTPStatus,
+    Namespace,
+    Resource,
+    commit_or_abort,
+    paginate,
+)
 from app.extensions.database import db
 
 from .models import Customer, Favorite

@@ -1,6 +1,12 @@
 from flask import abort, jsonify
 
-from app.extensions.api import HTTPStatus, Namespace, Resource, commit_or_abort
+from app.extensions.api import (
+    HTTPStatus,
+    Namespace,
+    Resource,
+    commit_or_abort,
+    paginate,
+)
 from app.extensions.database import db
 
 from .models import Product
@@ -12,9 +18,12 @@ api = Namespace("products", description="Products")
 
 @api.route("/")
 class ProductResource(Resource):
-    def get(self):
+    def get(self, page_number=1, page_size=20):
         products = Product.get_all_products() or abort(204)
-        return jsonify({"products": [product.to_dict() for product in products]})
+
+        data = [product.to_dict() for product in products]
+
+        return jsonify(paginate(page_number, page_size, len(data), data))
 
     def post(self):
 
