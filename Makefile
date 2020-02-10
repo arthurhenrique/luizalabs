@@ -9,17 +9,23 @@ all: clean install test
 test:
 	poetry run pytest tests -v
 
+magic:
+	$(SHELL) egg.sh
+
 generate-env:
 	cp .env.example .env
 
-magic:
-	$(SHELL) egg.sh
+prepare-db:
+	poetry run flask drop-db
+	poetry run flask create-db
+	poetry run flask populate-db
 
 install:
 	$(MAKE) generate-env
 	pip install --upgrade pip
 	pip install poetry
 	poetry install
+	$(MAKE) prepare-db
 
 run:
 	poetry run flask run
