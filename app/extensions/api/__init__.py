@@ -119,3 +119,12 @@ def paginate(
     }
 
     return result
+
+
+def update_dict(query_result, payload):
+
+    for key in payload:
+        if "id" not in key:
+            setattr(query_result, key, payload[key])
+
+    return query_result, payload

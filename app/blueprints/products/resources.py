@@ -6,6 +6,7 @@ from app.extensions.api import (
     Resource,
     commit_or_abort,
     paginate,
+    update_dict,
 )
 from app.extensions.database import db
 
@@ -52,9 +53,7 @@ class ProductByID(Resource):
             product = Product.query.filter_by(id=product_id).first_or_404()
             payload = self.api.payload
 
-            for k in payload:
-                if "id" not in k:
-                    setattr(product, k, payload[k])
+            product, payload = update_dict(product, payload)
 
         return jsonify({"message": "updated"})
 
