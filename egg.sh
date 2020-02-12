@@ -1,5 +1,5 @@
 prolado(){
-
+    
     echo "  __                  __                            __                  __                 "
     echo "/  |                /  |                          /  |                /  |                "
     echo "LL |       __    __ LL/  ________   ______        LL |        ______  LL |____    _______ "
@@ -12,7 +12,7 @@ prolado(){
 }
 
 prooutro(){
-                                                                                       
+    
     echo " /LL                 /LL                           /LL                 /LL                "
     echo "| LL                |__/                          | LL                | LL                "
     echo "| LL       /LL   /LL /LL /LLLLLLLL  /LLLLLL       | LL        /LLLLLL | LLLLLLL   /LLLLLLL"
@@ -21,7 +21,7 @@ prooutro(){
     echo "| LL      | LL  | LL| LL  /LL__/   /LL__  LL      | LL       /LL__  LL| LL  | LL \____  LL"
     echo "| LLLLLLLL|  LLLLLL/| LL /LLLLLLLL|  LLLLLLL      | LLLLLLLL|  LLLLLLL| LLLLLLL/ /LLLLLLL/"
     echo "|________/ \______/ |__/|________/ \_______/      |________/ \_______/|_______/ |_______/ "
-                                                                                          
+    
 }
 
 egg="$(python -c 'print("clear ; prolado ; sleep 1 ; clear ; prooutro; sleep 1;" * (0xDEADBEAF - (0xDEADBEAF - 42)))')"

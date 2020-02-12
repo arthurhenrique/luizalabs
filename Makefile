@@ -1,10 +1,10 @@
 SHELL := /bin/bash
-.PHONY: all clean install test 
+.PHONY: all clean install test
 
 help:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
-all: clean install test 
+all: clean install test
 
 test:
 	poetry run pytest tests -v
@@ -28,7 +28,7 @@ install:
 	$(MAKE) prepare-db
 
 run:
-	poetry run flask run
+	poetry run flask run --host 0.0.0.0
 
 deploy:
 	docker-compose build
