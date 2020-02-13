@@ -4,14 +4,15 @@ Code Challenge Luiza Labs
 
 This project runs on Python micro web framework: Flask.
 
-- Docker to deployment.
-- Uses Pytest in order to test.
+-   Docker to deployment.
+
+-   Uses Pytest in order to test.
 
 ## Requirements
 
-- Python3
-- Pip
-- Docker (to deployment)
+-   Python3
+-   Pip
+-   Docker (to deployment)
 
 ## Installation
 
@@ -19,7 +20,7 @@ This project runs on Python micro web framework: Flask.
 
 ## Database Helper
 
-`make prepare-db`
+`make migrate`
 
 ## Runnning Localhost
 
@@ -42,7 +43,7 @@ Access here:
 
 ## Project structure
 
-Files related to application are in the ``app`` or ``tests`` directories.
+Files related to application are in the `app` or `tests` directories.
 Application parts are:
 
     app

@@ -1,4 +1,8 @@
+from http import HTTPStatus
+from datetime import timedelta
 from flask import abort, jsonify
+from flask_jwt_extended import create_access_token, create_refresh_token
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.extensions.api import (
     HTTPStatus,
@@ -22,12 +26,9 @@ class UserResource(Resource):
             db.session, default_error_message="Failed to create a new user"
         ):
             user = User(self.api.payload)
-            import ipdb
-
-            ipdb.set_trace()
             db.session.add(user)
 
-        return jsonify({"created": user.to_dict()})
+        return jsonify({"message": "created"})
 
 
 @api.route("/<int:user_id>")
@@ -63,10 +64,26 @@ class UserByID(Resource):
 @api.route("/login")
 class UserLogin(Resource):
     def post(self):
-        with commit_or_abort(
-            db.session, default_error_message="Failed to create a new user"
-        ):
-            user = User(self.api.payload)
-            db.session.add(user)
+        try:
+            payload = self.api.payload
 
-        return jsonify({"created": user.to_dict()})
+            user = User.query.filter_by(username=payload.get("username")).first()
+            if user.verify_password(password=payload.get("password")):
+                access_token = create_access_token(
+                    identity=user.id, expires_delta=timedelta(minutes=10)
+                )
+                refresh_token = create_refresh_token(identity=user.id)
+                msg_token = dict(
+                    access_token={"Authorization": f"Bearer {access_token}"},
+                )
+
+                return jsonify(dict(msg=msg_token), HTTPStatus.OK)
+            else:
+                return jsonify(
+                    {"error": "Invalid credentials, please insert a valid credential"},
+                    HTTPStatus.BAD_REQUEST,
+                )
+        except KeyError:
+            return jsonify(dict(error="Payload is not valid"), HTTPStatus.BAD_REQUEST)
+        except Exception as e:
+            return jsonify(dict(error=e.args[0]), HTTPStatus.BAD_REQUEST)

@@ -1,6 +1,6 @@
 from app.extensions.database import db
-from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy_serializer import SerializerMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model, SerializerMixin):
@@ -12,14 +12,14 @@ class User(db.Model, SerializerMixin):
 
     def __init__(self, data):
         self.username = data.get("username")
-        self.password = data.get("password")
+        self.password = self.hash_password(data.get("password"))
 
     def verify_password(self, password) -> bool:
         return check_password_hash(pwhash=self.password, password=password)
 
-    def hash_password(self, password) -> str:
+    def hash_password(self, paverify_token_claimsssword) -> str:
         return generate_password_hash(password)
 
     def __repr__(self):
-        return "<User {}>".format(self.name)
+        return "<User {}>".format(self.username)
 

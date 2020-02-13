@@ -1,5 +1,5 @@
 from flask import abort, jsonify
-
+from flask_jwt_extended import jwt_required
 from app.extensions.api import (
     HTTPStatus,
     Namespace,
@@ -19,6 +19,7 @@ api = Namespace("products", description="Products")
 
 @api.route("/")
 class ProductResource(Resource):
+    @jwt_required
     def get(self, page_number=1, page_size=20):
         products = Product.get_all_products() or abort(204)
 
@@ -26,6 +27,7 @@ class ProductResource(Resource):
 
         return jsonify(paginate(page_number, page_size, len(data), data))
 
+    @jwt_required
     def post(self):
 
         with commit_or_abort(
@@ -42,10 +44,12 @@ class ProductResource(Resource):
     code=HTTPStatus.NOT_FOUND, description="Product not found.",
 )
 class ProductByID(Resource):
+    @jwt_required
     def get(self, product_id):
         product = Product.query.filter_by(id=product_id).first_or_404()
         return jsonify(product.to_dict())
 
+    @jwt_required
     def put(self, product_id):
         with commit_or_abort(
             db.session, default_error_message="Failed to update the product"
@@ -57,6 +61,7 @@ class ProductByID(Resource):
 
         return jsonify({"message": "updated"})
 
+    @jwt_required
     def delete(self, product_id):
         with commit_or_abort(
             db.session, default_error_message="Failed to update the product"

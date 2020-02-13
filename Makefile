@@ -15,7 +15,7 @@ magic:
 generate-env:
 	cp .env.example .env
 
-prepare-db:
+migrate:
 	poetry run flask drop-db
 	poetry run flask create-db
 	poetry run flask populate-db
@@ -25,7 +25,7 @@ install:
 	pip install --upgrade pip
 	pip install poetry
 	poetry install
-	$(MAKE) prepare-db
+	$(MAKE) migrate
 
 run:
 	poetry run flask run --host 0.0.0.0
