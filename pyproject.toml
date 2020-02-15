@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "luizalabs"
+version = "0.1.0"
+description = ""
+authors = ["arthur <arthur393@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^1.1.1"
+flask_sqlalchemy = "^2.4.1"
+SQLAlchemy = "^1.3.13"
+ipdb = "^0.12.3"
+Werkzeug = "0.16.1"
+flask_marshmallow = "^0.10.1"
+flask-marshmallow = "^0.10.1"
+marshmallow_sqlalchemy = "^0.21.0"
+sqlalchemy_serializer = "^1.3.4"
+mixer = "^6.1.3"
+dynaconf = "^2.2.2"
+flask_restplus = "0.12.1"
+pytest = "^5.3.5"
+flask-jwt-extended = "^3.24.1"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^19.10b0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
